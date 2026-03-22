@@ -94,19 +94,26 @@ public class Main {
                     return "done";
                 });
             }
+            List<Future<String>> results = null;
 
             try {
-                executorService.invokeAll(tasks);
+                results = executorService.invokeAll(tasks);
             } catch (InterruptedException ie) {
                 ie.printStackTrace();
             }
 
-            executorService.shutdown();
+            // get results from futures
             try {
-                executorService.awaitTermination(10, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
+                for (Future<String> result : results) {
+                    String s = result.get();
+                    // System.out.println(s);
+                }
+            } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
+
+            // shutdown executor service
+            executorService.shutdown();
 
             long stop = System.nanoTime();
             totalTime += (stop - start);
@@ -154,18 +161,26 @@ public class Main {
             });
         }
 
-        try {
-            executorService.invokeAll(tasks);
-        } catch (InterruptedException ie) {
-            ie.printStackTrace();
-        }
+        List<Future<String>> results = null;
 
-        executorService.shutdown();
         try {
-            executorService.awaitTermination(10, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+                results = executorService.invokeAll(tasks);
+            } catch (InterruptedException ie) {
+                ie.printStackTrace();
+            }
+
+            // get results from futures
+            try {
+                for (Future<String> result : results) {
+                    String s = result.get();
+                    // System.out.println(s);
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            // shutdown executor service
+            executorService.shutdown();
 
         long stop = System.nanoTime();
         totalTime += (stop - start);
@@ -234,18 +249,26 @@ public class Main {
                 });
             }
 
+            List<Future<String>> results = null;
+
             try {
-                executorService.invokeAll(tasks);
+                results = executorService.invokeAll(tasks);
             } catch (InterruptedException ie) {
                 ie.printStackTrace();
             }
 
-            executorService.shutdown();
+            // get results from futures
             try {
-                executorService.awaitTermination(30, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
+                for (Future<String> result : results) {
+                    String s = result.get();
+                    // System.out.println(s);
+                }
+            } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
+
+            // shutdown executor service
+            executorService.shutdown();
 
             long stop = System.nanoTime();
             totalTime += (stop - start);
